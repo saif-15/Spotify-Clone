@@ -6,13 +6,18 @@ import {
   HeartIcon,
   RssIcon,
 } from "@heroicons/react/outline";
+import { signOut ,useSession } from "next-auth/react";
 import React from "react";
 
 export default function SideBar() {
+
+
+  const {data:session,status} =useSession();
+  
   return (
-    <div className="text-gray-500 text-sm p-5 border-r border-gray-400">
+    <div className="text-gray-500 text-sm p-5 border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen">
       <div className="space-y-3">
-        <button className="flex space-x-2 hover:text-white">
+        <button className="flex space-x-2 hover:text-white" >
           <HomeIcon className="h-5 w-5" />
           <p>Home</p>
         </button>

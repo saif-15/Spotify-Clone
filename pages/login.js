@@ -1,11 +1,31 @@
+import {getProviders,signIn} from "next-auth/react";
 import React from 'react'
 
-function Login() {
+function Login({providers}) {
     return (
-        <div>
-            <h>Login Page</h>
+        <div className="flex flex-col items-center bg-black min-h-screen w-full justify-center">
+           <img className="w-52 mb-10" src="https://links.papareact.com/9xl" alt=""/>
+
+           {Object.values(providers).map((provider) => {
+               return <div key={provider.name}>
+                   <button className="bg-[#18D860] text-white p-5 rounded-full" 
+                   onClick={()=>{
+                    signIn(provider.id,{callbackUrl:"/"})
+                   }}>Login With {provider.name}</button>
+               </div>
+           })}
         </div>
     )
 }
 
-export default Login
+export default Login;
+
+export async function getServerSideProps(){
+    const providers=await getProviders();
+
+    return {
+        props:{
+            providers
+        }
+    }
+}
